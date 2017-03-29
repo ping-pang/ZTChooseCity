@@ -20,6 +20,7 @@
 @end
 #define headViewH 40
 #define stateH 20
+#define indexViewW 25
 #define SCREEN_W [UIScreen mainScreen].bounds.size.width
 
 @implementation ZTLocalCityViewController
@@ -100,7 +101,8 @@
 }
 
 -(void)initTable{
-    _table = [[UITableView alloc]initWithFrame:CGRectMake(0, headViewH+stateH, self.view.frame.size.width, self.view.frame.size.height-headViewH-stateH) style:UITableViewStylePlain];
+    _table = [[UITableView alloc]initWithFrame:CGRectMake(0, headViewH+stateH, self.view.frame.size.width-indexViewW, self.view.frame.size.height-headViewH-stateH) style:UITableViewStylePlain];
+    _table.showsVerticalScrollIndicator = NO;
     [_table setSectionHeaderHeight:15];
     [_table setSectionFooterHeight:0];
     _table.delegate = self;
@@ -146,7 +148,7 @@
     static NSString *identifier = @"CELL";
     
     if (indexPath.section ==0) {
-        ZTHotCityTableViewCell *cell = [[ZTHotCityTableViewCell alloc]initWithFrame:CGRectMake(0, 0, SCREEN_W, 1000)];
+        ZTHotCityTableViewCell *cell = [[ZTHotCityTableViewCell alloc]initWithFrame:CGRectMake(0, 0, _table.frame.size.width, 1000)];
         __block typeof(self)blockSelf = self;
         cell.hotCityCallBack = ^(NSString *cityName){
             [blockSelf sendNotifityWithObj:cityName];
@@ -182,7 +184,7 @@
 
 //索引 右侧
 -(void)initIndexView{
-    _indexView = [[ZTIndexView alloc]initWithFrame:CGRectMake(SCREEN_W-25, CGRectGetMinY(_table.frame)+25, 25, _table.frame.size.height-50) andArray:firstLetterArray];
+    _indexView = [[ZTIndexView alloc]initWithFrame:CGRectMake(SCREEN_W-25, self.view.frame.size.width-indexViewW, indexViewW, _table.frame.size.height-50) andArray:firstLetterArray];
     _indexView.indexViewBackColor = [UIColor lightGrayColor];
     [_indexView setTitlefont:14 andTitleColor:[UIColor greenColor] andTextAlignment:NSTextAlignmentCenter];
     

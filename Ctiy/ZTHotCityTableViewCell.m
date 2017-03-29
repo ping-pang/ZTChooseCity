@@ -33,7 +33,7 @@
         int vertical = 0;  //竖
         int horizontal = 0; //横
         
-        NSInteger horizontalNum = screenW/(BtnW+20);
+        NSInteger horizontalNum = screenW/(BtnW+10);  //375 /70
         
         for (int i = 0; i<_array.count; i++) {
             
@@ -47,7 +47,7 @@
                 [self addSubview:btn];
                 horizontal++;
             
-            if (horizontal>horizontalNum) {
+            if (horizontal==horizontalNum) {
                 horizontal = 0;
                 vertical ++;
             }
